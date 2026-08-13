@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { AuthContext } from '../context/AuthContext';
 import { FiHeart, FiMapPin, FiBriefcase, FiUser, FiPhone } from 'react-icons/fi';
 import { FaHeart } from 'react-icons/fa';
@@ -37,7 +38,7 @@ const PostCard = ({ post, onDelete }) => {
     if (!user) return navigate('/login');
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const res = await axios.put(`http://localhost:5000/api/posts/${post._id}/like`, {}, config);
+      const res = await axios.put(`${API_BASE_URL}/api/posts/${post._id}/like`, {}, config);
       setIsLiked(res.data.likes.includes(user._id));
     } catch (error) {
       console.error('Error liking/unliking post:', error);
@@ -48,7 +49,7 @@ const PostCard = ({ post, onDelete }) => {
     try {
       setIsDeleting(true);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.delete(`http://localhost:5000/api/posts/${post._id}`, config);
+      await axios.delete(`${API_BASE_URL}/api/posts/${post._id}`, config);
       setShowDeleteModal(false);
       if (onDelete) onDelete(post._id);
     } catch (error) {
@@ -63,7 +64,7 @@ const PostCard = ({ post, onDelete }) => {
       setLoadingMsg(true);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
       const receiverId = post.userId._id || post.userId;
-      const response = await axios.post(`http://localhost:5000/api/messages/conversation/get-or-create/${receiverId}`, {}, config);
+      const response = await axios.post(`${API_BASE_URL}/api/messages/conversation/get-or-create/${receiverId}`, {}, config);
       navigate('/messages', { state: { conversationId: response.data.conversationId } });
     } catch (error) {
       console.error('Error starting conversation:', error);

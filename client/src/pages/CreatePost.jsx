@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { FiBriefcase, FiUserCheck, FiMapPin, FiPhone, FiFileText, FiLayers, FiCheck, FiEye, FiUser } from 'react-icons/fi';
@@ -71,7 +72,7 @@ const CreatePost = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      await axios.post('http://localhost:5000/api/posts', { ...formData, type }, config);
+      await axios.post(`${API_BASE_URL}/api/posts`, { ...formData, type }, config);
       navigate('/explore');
     } catch (error) {
       console.error('Error creating post', error);

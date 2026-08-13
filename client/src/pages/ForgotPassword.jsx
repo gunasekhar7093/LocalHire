@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import './styles/ForgotPassword.css';
 
 const ForgotPassword = () => {
@@ -24,7 +25,7 @@ const ForgotPassword = () => {
     setLoading(true);
     setError(null);
     try {
-      await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+      await axios.post(`${API_BASE_URL}/api/auth/forgot-password`, { email });
       setStep(2);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to send OTP');
@@ -41,7 +42,7 @@ const ForgotPassword = () => {
     setLoading(true);
     setError(null);
     try {
-      await axios.post('http://localhost:5000/api/auth/reset-password', { email, otp, password });
+      await axios.post(`${API_BASE_URL}/api/auth/reset-password`, { email, otp, password });
       setSuccess("Password reset successfully! Redirecting to login...");
       setTimeout(() => {
         navigate('/login');

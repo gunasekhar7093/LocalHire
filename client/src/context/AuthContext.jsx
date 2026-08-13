@@ -2,8 +2,9 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import { API_BASE_URL } from '../config';
 
-export const socket = io('http://localhost:5000');
+export const socket = io(API_BASE_URL);
 
 export const AuthContext = createContext();
 
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }) => {
       const fetchUnread = async () => {
         try {
           const config = { headers: { Authorization: `Bearer ${user.token}` } };
-          const res = await axios.get('http://localhost:5000/api/messages/unread-total', config);
+          const res = await axios.get(`${API_BASE_URL}/api/messages/unread-total`, config);
           setUnreadTotal(res.data.unreadTotal);
         } catch (err) {
           console.error('Error fetching unread count:', err);
@@ -65,7 +66,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       setError(null);
-      const res = await axios.post('http://localhost:5000/api/auth/register', userData);
+      const res = await axios.post(`${API_BASE_URL}/api/auth/register`, userData);
       localStorage.setItem('user', JSON.stringify(res.data));
       setUser(res.data);
       navigate('/explore');
@@ -79,7 +80,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (userData) => {
     try {
       setError(null);
-      const res = await axios.post('http://localhost:5000/api/auth/login', userData);
+      const res = await axios.post(`${API_BASE_URL}/api/auth/login`, userData);
       localStorage.setItem('user', JSON.stringify(res.data));
       setUser(res.data);
       navigate('/explore');
@@ -94,7 +95,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setError(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const res = await axios.put('http://localhost:5000/api/auth/me', userData, config);
+      const res = await axios.put(`${API_BASE_URL}/api/auth/me`, userData, config);
       localStorage.setItem('user', JSON.stringify(res.data));
       setUser(res.data);
       return true;

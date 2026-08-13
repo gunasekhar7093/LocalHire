@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { AuthContext } from '../context/AuthContext';
 import PostCard from '../components/PostCard';
 import './styles/Profile.css';
@@ -21,8 +22,8 @@ const Profile = () => {
         setLoadingPosts(true);
         const config = { headers: { Authorization: `Bearer ${user.token}` } };
         const [myPostsRes, likedPostsRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/posts?userId=${user._id}`),
-          axios.get('http://localhost:5000/api/posts/liked', config)
+          axios.get(`${API_BASE_URL}/api/posts?userId=${user._id}`),
+          axios.get(`${API_BASE_URL}/api/posts/liked`, config)
         ]);
         setMyPosts(myPostsRes.data);
         setLikedPosts(likedPostsRes.data);

@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import './styles/Register.css';
 
 const Register = () => {
@@ -32,7 +33,7 @@ const Register = () => {
     }
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/auth/send-otp', { email: formData.email });
+      await axios.post(`${API_BASE_URL}/api/auth/send-otp`, { email: formData.email });
       setStep(2);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to send OTP');

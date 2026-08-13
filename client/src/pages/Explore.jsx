@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import PostCard from '../components/PostCard';
 import { FiSearch, FiX, FiFilter, FiBriefcase, FiUserCheck, FiCompass } from 'react-icons/fi';
 import './styles/Explore.css';
@@ -31,7 +32,7 @@ const Explore = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      let url = `http://localhost:5000/api/posts?type=${filterType}`;
+      let url = `${API_BASE_URL}/api/posts?type=${filterType}`;
       if (activeQuery) {
         url += `&keyword=${encodeURIComponent(activeQuery)}`;
       }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { AuthContext } from '../context/AuthContext';
 import { FiMessageCircle } from 'react-icons/fi';
 import PostCard from '../components/PostCard';
@@ -22,10 +23,10 @@ const UserProfile = () => {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        const userRes = await axios.get(`http://localhost:5000/api/auth/user/${id}`);
+        const userRes = await axios.get(`${API_BASE_URL}/api/auth/user/${id}`);
         setProfileUser(userRes.data);
 
-        const postRes = await axios.get(`http://localhost:5000/api/posts?userId=${id}`);
+        const postRes = await axios.get(`${API_BASE_URL}/api/posts?userId=${id}`);
         setUserPosts(postRes.data);
       } catch (error) {
         console.error('Error fetching user profile:', error);
@@ -41,7 +42,7 @@ const UserProfile = () => {
     try {
       setLoadingMsg(true);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const response = await axios.post(`http://localhost:5000/api/messages/conversation/get-or-create/${id}`, {}, config);
+      const response = await axios.post(`${API_BASE_URL}/api/messages/conversation/get-or-create/${id}`, {}, config);
       navigate('/messages', { state: { conversationId: response.data.conversationId } });
     } catch (error) {
       console.error(error);

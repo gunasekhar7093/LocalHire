@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { FiArrowLeft, FiMapPin, FiPhone, FiBriefcase, FiAlignLeft, FiClock, FiMessageCircle, FiUser } from 'react-icons/fi';
@@ -18,7 +19,7 @@ const PostDetails = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        const res = await axios.get(`${API_BASE_URL}/api/posts/${id}`);
         setPost(res.data);
       } catch (error) {
         console.error('Error fetching post:', error);
@@ -43,7 +44,7 @@ const PostDetails = () => {
       setLoadingMsg(true);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
       const receiverId = post.userId._id || post.userId;
-      const response = await axios.post(`http://localhost:5000/api/messages/conversation/get-or-create/${receiverId}`, {}, config);
+      const response = await axios.post(`${API_BASE_URL}/api/messages/conversation/get-or-create/${receiverId}`, {}, config);
       navigate('/messages', { state: { conversationId: response.data.conversationId } });
     } catch (error) {
       console.error('Error starting conversation:', error);

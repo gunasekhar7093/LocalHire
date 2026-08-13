@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { AuthContext, socket } from '../context/AuthContext';
 import { useLocation, Link } from 'react-router-dom';
 import { FiMoreVertical } from 'react-icons/fi';
@@ -68,7 +69,7 @@ const Messages = () => {
         ));
 
         const config = { headers: { Authorization: `Bearer ${user.token}` } };
-        axios.put(`http://localhost:5000/api/messages/read/${data.room}`, {}, config).catch(console.error);
+        axios.put(`${API_BASE_URL}/api/messages/read/${data.room}`, {}, config).catch(console.error);
       } else {
         setConversations((prevConvs) => prevConvs.map(c => 
           c._id === data.room ? { ...c, lastMessage: data.message.message, unreadCount: (c.unreadCount || 0) + 1 } : c
@@ -87,7 +88,7 @@ const Messages = () => {
     try {
       setLoadingConvs(true);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const res = await axios.get('http://localhost:5000/api/messages/conversations', config);
+      const res = await axios.get(`${API_BASE_URL}/api/messages/conversations`, config);
       setConversations(res.data);
 
       if (location.state?.conversationId) {
@@ -117,7 +118,7 @@ const Messages = () => {
       ));
 
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const res = await axios.get(`http://localhost:5000/api/messages/${conversation._id}`, config);
+      const res = await axios.get(`${API_BASE_URL}/api/messages/${conversation._id}`, config);
       setMessages(res.data);
     } catch (error) {
       console.error(error);
@@ -132,7 +133,7 @@ const Messages = () => {
 
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const res = await axios.post(`http://localhost:5000/api/messages/${receiverId}`, { message: newMessage }, config);
+      const res = await axios.post(`${API_BASE_URL}/api/messages/${receiverId}`, { message: newMessage }, config);
       
       const msgData = res.data;
       setMessages([...messages, msgData]);
@@ -172,7 +173,7 @@ const Messages = () => {
   const confirmDeleteChat = async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.put(`http://localhost:5000/api/messages/conversation/${currentChat._id}/delete`, {}, config);
+      await axios.put(`${API_BASE_URL}/api/messages/conversation/${currentChat._id}/delete`, {}, config);
       setCurrentChat(null);
       setMessages([]);
       setShowDeleteModal(false);

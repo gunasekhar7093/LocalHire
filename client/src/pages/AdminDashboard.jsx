@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import './styles/AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -21,7 +22,7 @@ const AdminDashboard = () => {
   const fetchUsers = async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.get('http://localhost:5000/api/auth/users', config);
+      const res = await axios.get(`${API_BASE_URL}/api/auth/users`, config);
       setUsers(res.data);
     } catch (error) {
       console.error(error);
@@ -40,7 +41,7 @@ const AdminDashboard = () => {
     if (!userToDelete) return;
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.delete(`http://localhost:5000/api/auth/user/${userToDelete.id}`, config);
+      await axios.delete(`${API_BASE_URL}/api/auth/user/${userToDelete.id}`, config);
       setUsers(users.filter(u => u._id !== userToDelete.id));
       setUserToDelete(null);
     } catch (error) {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import './styles/AdminLogin.css';
 
@@ -14,7 +15,7 @@ const AdminLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/admin-login', { email, password });
+      const res = await axios.post(`${API_BASE_URL}/api/auth/admin-login`, { email, password });
       localStorage.setItem('adminToken', res.data.token);
       navigate('/admindashboard');
     } catch (err) {
