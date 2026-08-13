@@ -1,0 +1,279 @@
+/* =====================================================
+   EXPLORE PAGE STYLES – Redesigned
+   ===================================================== */
+
+.explore-container {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+  width: 100%;
+}
+
+/* Banner Card */
+.explore-banner-card {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(124, 58, 237, 0.06) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem 2rem;
+  margin-bottom: 1.75rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+html.dark .explore-banner-card {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.1) 100%);
+}
+
+.explore-title-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.explore-hero-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+}
+
+.explore-hero-sub {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* Category Presets Scrollbar */
+.explore-presets-scroll {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  scrollbar-width: thin;
+}
+
+.explore-presets-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.preset-chip {
+  white-space: nowrap;
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-main);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-bounce);
+  box-shadow: var(--shadow-sm);
+}
+
+.preset-chip:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.preset-chip.active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #6366f1 100%);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+}
+
+/* Filter Bar */
+.explore-filter-bar {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 1.75rem;
+  align-items: center;
+}
+
+.explore-search-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.explore-search-input {
+  width: 100%;
+  border-radius: var(--radius-full);
+  padding: 0.95rem 5.5rem 0.95rem 1.4rem;
+  font-size: 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.explore-search-input:focus {
+  box-shadow: var(--shadow-glow);
+  border-color: var(--color-primary);
+}
+
+.search-actions-group {
+  position: absolute;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.explore-search-clear-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.explore-search-clear-btn:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.explore-search-btn {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #6366f1 100%);
+  border: none;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+  transition: all var(--transition-bounce);
+}
+
+.explore-search-btn:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Filter Select with icon */
+.filter-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.filter-icon {
+  position: absolute;
+  left: 1.1rem;
+  color: var(--color-primary);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.explore-select-input {
+  width: 220px;
+  min-width: 220px;
+  border-radius: var(--radius-full);
+  padding: 0.95rem 2.5rem 0.95rem 2.5rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Results Count Bar */
+.explore-results-header {
+  margin-bottom: 1.25rem;
+}
+
+.results-count-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+/* Empty State Card */
+.explore-empty-card {
+  text-align: center;
+  padding: 4.5rem 2rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  max-width: 580px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.empty-icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.explore-empty-card h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.explore-empty-card p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  max-width: 420px;
+}
+
+.empty-reset-btn {
+  margin-top: 0.75rem;
+}
+
+/* Post Grid */
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media (max-width: 840px) {
+  .explore-hero-title {
+    font-size: 1.75rem;
+  }
+  .explore-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .explore-select-input {
+    width: 100%;
+    min-width: unset;
+  }
+  .explore-grid {
+    grid-template-columns: 1fr;
+  }
+}

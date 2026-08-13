@@ -1,0 +1,136 @@
+/* =====================================================
+   LOGIN & REGISTER AUTH STYLES
+   ===================================================== */
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 68px - 76px);
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-xl);
+}
+
+.auth-title {
+  margin-bottom: 1.75rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  letter-spacing: -0.03em;
+}
+
+.auth-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--color-text-main);
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 44px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.password-toggle-btn:hover {
+  color: var(--color-primary);
+}
+
+.forgot-password-wrapper {
+  text-align: right;
+  margin-top: 0.4rem;
+}
+
+.forgot-password-link {
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+.auth-submit-btn {
+  margin-top: 0.75rem;
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.05rem;
+}
+
+.auth-redirect-text {
+  margin-top: 1.75rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+.auth-link-primary {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.auth-link-primary:hover {
+  text-decoration: underline;
+}
+
+.admin-login-wrapper {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.admin-login-link {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.admin-login-link:hover {
+  color: var(--color-text-main);
+}

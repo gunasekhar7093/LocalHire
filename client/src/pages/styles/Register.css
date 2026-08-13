@@ -1,0 +1,101 @@
+/* =====================================================
+   REGISTER STYLES
+   ===================================================== */
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 68px - 76px);
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-xl);
+}
+
+.register-title {
+  margin-bottom: 1.75rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  letter-spacing: -0.03em;
+}
+
+.register-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.register-submit-btn {
+  margin-top: 0.75rem;
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.05rem;
+}
+
+.otp-info-text {
+  text-align: center;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.otp-input {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.6rem;
+  border-radius: var(--radius-md);
+}
+
+.go-back-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  margin-top: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.go-back-btn:hover {
+  color: var(--color-primary);
+}
+
+.register-redirect-text {
+  margin-top: 1.75rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+.register-link-primary {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.register-link-primary:hover {
+  text-decoration: underline;
+}

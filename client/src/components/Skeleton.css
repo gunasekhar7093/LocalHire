@@ -1,0 +1,249 @@
+/* =====================================================
+   SKELETON SHIMMER ANIMATION
+   The shimmer moves across the skeleton placeholder boxes
+   ===================================================== */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* =====================================================
+   SKELETON BOX – base shimmer placeholder element
+   Light mode: light gray shimmer
+   ===================================================== */
+.skeleton-box {
+  /* Light mode shimmer colors */
+  background-color: #e2e8f0;
+  background-image: linear-gradient(
+    90deg,
+    #e2e8f0 0px,
+    #f1f5f9 50px,
+    #e2e8f0 100px
+  );
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  animation: skeleton-shimmer 1.5s infinite ease-in-out;
+  border-radius: var(--radius-sm);
+}
+
+/* Dark mode skeleton box – darker shimmer colors */
+html.dark .skeleton-box {
+  background-color: #334155;
+  background-image: linear-gradient(
+    90deg,
+    #334155 0px,
+    #475569 50px,
+    #334155 100px
+  );
+}
+
+/* =====================================================
+   POST CARD SKELETON
+   Shown while Explore grid is loading
+   ===================================================== */
+
+/* Skeleton card container – matches real post card layout */
+.skeleton-card {
+  width: 100%;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem;
+  /* Inherits --color-surface (auto dark/light) */
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  box-sizing: border-box;
+}
+
+.skeleton-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skeleton-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Avatar placeholder circle */
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.skeleton-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Badge placeholder pill */
+.skeleton-badge {
+  width: 60px;
+  height: 22px;
+  border-radius: var(--radius-full);
+}
+
+/* Title placeholder bar */
+.skeleton-title {
+  width: 70%;
+  height: 24px;
+  margin-bottom: 0.75rem;
+}
+
+/* Full-width text placeholder */
+.skeleton-text {
+  width: 100%;
+  height: 14px;
+  margin-bottom: 0.5rem;
+}
+
+/* Shorter text placeholder */
+.skeleton-text-short {
+  width: 80%;
+  height: 14px;
+  margin-bottom: 1rem;
+}
+
+/* Tags row placeholder */
+.skeleton-tags {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Individual tag placeholder */
+.skeleton-tag {
+  width: 80px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+}
+
+/* Action buttons row placeholder */
+.skeleton-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+/* Small icon button placeholder */
+.skeleton-btn-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+}
+
+/* Full-width button placeholder */
+.skeleton-btn-full {
+  flex: 1;
+  height: 38px;
+  border-radius: var(--radius-full);
+}
+
+/* =====================================================
+   PROFILE SKELETON
+   Shown while Profile page is loading
+   ===================================================== */
+
+/* Profile card skeleton container */
+.skeleton-profile-card {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto 32px;
+  padding: 2rem;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Profile header (avatar + info row) */
+.skeleton-profile-header {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+/* Large avatar circle placeholder */
+.skeleton-profile-avatar {
+  width: 140px;
+  height: 140px;
+  min-width: 140px;
+  border-radius: 50%;
+}
+
+.skeleton-profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Action buttons row placeholder */
+.skeleton-profile-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* =====================================================
+   POST DETAILS & MESSAGES SKELETON
+   ===================================================== */
+
+/* Post details card skeleton container */
+.skeleton-details-card {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Conversation item placeholder row */
+.skeleton-conv-item {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Message bubble placeholder */
+.skeleton-msg-bubble {
+  border-radius: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Sent message bubble (right-side) */
+.skeleton-msg-bubble.sender {
+  border-bottom-right-radius: 0.25rem;
+}
+
+/* Received message bubble (left-side) */
+.skeleton-msg-bubble.receiver {
+  border-bottom-left-radius: 0.25rem;
+}
+
+/* =====================================================
+   RESPONSIVE – mobile skeleton profile header
+   ===================================================== */
+@media (max-width: 768px) {
+  .skeleton-profile-header {
+    flex-direction: column;
+    align-items: center;
+  }
+}

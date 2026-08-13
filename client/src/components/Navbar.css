@@ -1,0 +1,112 @@
+/* =====================================================
+   BOTTOM NAVBAR – Floating Mobile/Tablet Navigation Pill
+   ===================================================== */
+
+/* Mobile/Tablet view only */
+@media (max-width: 860px) {
+  .bottom-navbar {
+    position: fixed !important;
+    bottom: 1rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 2rem) !important;
+    max-width: 520px !important;
+    height: 62px;
+    background: var(--color-surface-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 999;
+    box-shadow: var(--shadow-lg);
+    padding: 0 0.5rem;
+    transition: all var(--transition-normal);
+  }
+
+  html.dark .bottom-navbar {
+    background: rgba(21, 29, 42, 0.9);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Hide bottom navbar on desktop screens since desktop header has full links */
+@media (min-width: 861px) {
+  .bottom-navbar {
+    display: none !important;
+  }
+}
+
+.nav-link-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  gap: 0.15rem;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-bounce);
+  min-width: 64px;
+}
+
+.nav-link-item:hover {
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.nav-link-item.active {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.nav-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-bounce);
+}
+
+.nav-link-item.active .nav-icon-wrapper {
+  transform: scale(1.1);
+}
+
+.nav-unread-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border-radius: var(--radius-full);
+  padding: 0 5px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+  animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.nav-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.nav-label.bold {
+  font-weight: 700;
+}
