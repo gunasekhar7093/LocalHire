@@ -357,33 +357,37 @@ html.dark .brand-name {
 }
 
 /* Mobile elements */
+/* Mobile elements */
 .mobile-only {
   display: none;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 860px) {
   .desktop-nav-links {
-    display: none;
+    display: none !important;
   }
   .theme-toggle-text {
-    display: none;
+    display: none !important;
+  }
+  .desktop-only-auth {
+    display: none !important;
   }
   .mobile-only {
-    display: block;
+    display: block !important;
   }
   .top-header {
-    padding: 0 1.25rem;
-    height: 64px;
+    padding: 0 1rem !important;
+    height: 60px !important;
   }
 }
 
 @media (max-width: 600px) {
   .top-header {
-    padding: 0 0.75rem !important;
-    height: 58px !important;
+    padding: 0 0.65rem !important;
+    height: 56px !important;
   }
   .top-header-brand {
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
   .brand-icon {
     width: 32px;
@@ -392,14 +396,14 @@ html.dark .brand-name {
     border-radius: 8px;
   }
   .brand-name {
-    font-size: 1.15rem;
+    font-size: 1.12rem;
   }
   .brand-tag {
     font-size: 0.5rem;
     letter-spacing: 0.04em;
   }
-  .header-right {
-    gap: 0.35rem;
+  .header-right-actions {
+    gap: 0.4rem;
   }
   .theme-toggle-btn {
     width: 34px;
@@ -410,16 +414,25 @@ html.dark .brand-name {
     align-items: center;
     justify-content: center;
   }
-  .user-profile-pill {
+  .hamburger-menu-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .user-profile-pill-btn {
     padding: 0.2rem 0.45rem 0.2rem 0.2rem;
     gap: 0.3rem;
   }
-  .user-avatar-sm {
+  .header-avatar-small {
     width: 28px;
     height: 28px;
     font-size: 0.8rem;
   }
-  .user-pill-name {
+  .header-user-firstname {
     max-width: 68px;
     font-size: 0.82rem;
     overflow: hidden;
@@ -427,17 +440,6 @@ html.dark .brand-name {
     white-space: nowrap;
   }
   .chevron-icon {
-    font-size: 0.8rem;
-  }
-  .auth-nav-buttons {
-    gap: 0.35rem;
-  }
-  .login-btn {
-    padding: 0.38rem 0.65rem;
-    font-size: 0.8rem;
-  }
-  .signup-btn {
-    padding: 0.38rem 0.75rem;
     font-size: 0.8rem;
   }
   .header-dropdown-menu {
@@ -451,18 +453,10 @@ html.dark .brand-name {
     display: none;
   }
   .brand-name {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
   }
-  .user-pill-name {
+  .header-user-firstname {
     max-width: 50px;
     font-size: 0.78rem;
-  }
-  .login-btn {
-    padding: 0.35rem 0.5rem;
-    font-size: 0.75rem;
-  }
-  .signup-btn {
-    padding: 0.35rem 0.6rem;
-    font-size: 0.75rem;
   }
 }
