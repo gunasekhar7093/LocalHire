@@ -192,3 +192,37 @@
   padding: 0.85rem 2.25rem;
   font-size: 1.05rem;
 }
+
+@media (max-width: 600px) {
+  .post-details-container {
+    padding-top: 1.25rem;
+  }
+  .post-details-title {
+    font-size: clamp(1.4rem, 5.5vw, 1.8rem);
+    margin-bottom: 1rem;
+  }
+  .post-user-avatar {
+    width: 46px;
+    height: 46px;
+    font-size: 1.2rem;
+  }
+  .post-user-name {
+    font-size: 1.05rem;
+  }
+  .post-info-box {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    padding: 1rem;
+  }
+  .description-title {
+    font-size: 1.15rem;
+  }
+  .description-text {
+    font-size: 0.92rem;
+  }
+  .message-btn {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}

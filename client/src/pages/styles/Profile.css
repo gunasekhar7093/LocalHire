@@ -227,3 +227,52 @@
     gap: 1rem;
   }
 }
+
+@media (max-width: 600px) {
+  .profile-container {
+    padding-top: 1.25rem;
+  }
+  .profile-card {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 1.5rem;
+  }
+  .profile-avatar-lg {
+    width: 76px;
+    height: 76px;
+    min-width: 76px;
+    font-size: 1.85rem;
+  }
+  .profile-handle {
+    font-size: 1.25rem;
+  }
+  .profile-name {
+    font-size: 0.95rem;
+  }
+  .profile-about {
+    font-size: 0.88rem;
+  }
+  .profile-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+  .profile-action-btn {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 0.88rem;
+  }
+  .posts-section-title {
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+  }
+  .tab-group {
+    padding: 0.25rem;
+    gap: 0.25rem;
+  }
+  .tab-btn {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}

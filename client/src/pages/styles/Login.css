@@ -134,3 +134,22 @@
 .admin-login-link:hover {
   color: var(--color-text-main);
 }
+
+@media (max-width: 600px) {
+  .auth-container {
+    padding: 1.5rem 0.85rem;
+    min-height: calc(100vh - 60px - 70px);
+  }
+  .auth-card {
+    padding: 1.5rem 1.15rem;
+    border-radius: var(--radius-lg);
+  }
+  .auth-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+  }
+  .auth-submit-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+}

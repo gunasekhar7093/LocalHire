@@ -150,3 +150,47 @@
     position: static;
   }
 }
+
+@media (max-width: 600px) {
+  .create-post-container {
+    padding-top: 1.25rem;
+  }
+  .create-post-title {
+    font-size: clamp(1.4rem, 5.5vw, 1.8rem);
+  }
+  .create-post-sub {
+    font-size: 0.88rem;
+  }
+  .create-post-header-text {
+    margin-bottom: 1.25rem;
+  }
+  .create-post-card {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-lg);
+  }
+  .type-toggle-group {
+    padding: 0.25rem;
+    gap: 0.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .toggle-tab-btn {
+    padding: 0.55rem 0.5rem;
+    font-size: 0.8rem;
+    gap: 0.35rem;
+  }
+  
+  /* Single Column on mobile to prevent squished/truncated inputs */
+  .form-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .form-label {
+    font-size: 0.85rem;
+    margin-bottom: 0.35rem;
+  }
+  .create-post-submit-btn {
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+}

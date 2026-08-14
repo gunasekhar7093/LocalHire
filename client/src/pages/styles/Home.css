@@ -420,3 +420,142 @@
     text-align: center;
   }
 }
+
+@media (max-width: 600px) {
+  .home-hero-split {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+    gap: 2rem;
+  }
+  .home-hero-badge {
+    padding: 0.3rem 0.85rem;
+    font-size: 0.78rem;
+    margin-bottom: 1rem;
+  }
+  .home-hero-title {
+    font-size: clamp(1.75rem, 6.8vw, 2.2rem);
+    margin-bottom: 0.85rem;
+  }
+  .home-hero-desc {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  .home-hero-cta {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.65rem;
+    margin-bottom: 1.5rem;
+  }
+  .home-btn-cta,
+  .home-btn-explore {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.72rem 1.25rem;
+    font-size: 0.92rem;
+    box-sizing: border-box;
+  }
+  .hero-trust-row {
+    gap: 0.85rem;
+    justify-content: center;
+  }
+  .trust-item {
+    font-size: 0.78rem;
+  }
+  
+  /* Prevent visual card stack from overflowing right edge */
+  .visual-card-stack {
+    width: 100%;
+    max-width: 100%;
+    min-height: 300px;
+  }
+  .floating-preview-card {
+    padding: 0.95rem;
+    border-radius: var(--radius-md);
+  }
+  .card-bottom {
+    top: 110px;
+    left: 0 !important;
+    width: 100%;
+  }
+  
+  /* Metrics Grid on Mobile */
+  .home-metrics-section {
+    margin-bottom: 3rem;
+  }
+  .home-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+    padding: 0.9rem 0.4rem;
+    border-radius: var(--radius-lg);
+    width: 100%;
+  }
+  .metric-divider {
+    display: none;
+  }
+  .metric-number {
+    font-size: 1.25rem;
+  }
+  .metric-label {
+    font-size: 0.68rem;
+    line-height: 1.2;
+  }
+
+  /* Categories Grid on Mobile */
+  .home-categories-section {
+    margin-bottom: 3.5rem;
+  }
+  .section-header {
+    margin-bottom: 2rem;
+  }
+  .section-title {
+    font-size: 1.65rem;
+  }
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .category-card {
+    padding: 1.15rem 0.65rem;
+  }
+  .category-emoji {
+    font-size: 1.8rem;
+  }
+  .category-name {
+    font-size: 0.9rem;
+  }
+
+  /* Workflow & Banner on Mobile */
+  .home-workflow-section {
+    margin-bottom: 3.5rem;
+  }
+  .workflow-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .workflow-step-card {
+    padding: 1.5rem 1.25rem;
+  }
+  .step-number {
+    font-size: 2rem;
+  }
+  .step-title {
+    font-size: 1.15rem;
+  }
+  .home-cta-banner {
+    padding: 2rem 1.25rem;
+    gap: 1.25rem;
+  }
+  .banner-title {
+    font-size: 1.45rem;
+  }
+  .banner-desc {
+    font-size: 0.88rem;
+  }
+  .banner-cta-btn {
+    width: 100%;
+    padding: 0.72rem 1.25rem;
+    font-size: 0.92rem;
+  }
+}
