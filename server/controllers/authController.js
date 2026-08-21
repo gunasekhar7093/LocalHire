@@ -29,7 +29,6 @@ exports.sendOtp = async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
     // Setup Nodemailer transporter
-    // Using explicit SMTP host with IPv4 to avoid ENETUNREACH on cloud hosts (Render/Railway)
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
@@ -40,9 +39,7 @@ exports.sendOtp = async (req, res) => {
       },
       tls: {
         rejectUnauthorized: false
-      },
-      // Force IPv4 DNS resolution (fixes "connect ENETUNREACH" on Render)
-      dnsOptions: { family: 4 }
+      }
     });
 
     const mailOptions = {
@@ -323,8 +320,7 @@ exports.forgotPassword = async (req, res) => {
       },
       tls: {
         rejectUnauthorized: false
-      },
-      dnsOptions: { family: 4 }
+      }
     });
 
     const mailOptions = {

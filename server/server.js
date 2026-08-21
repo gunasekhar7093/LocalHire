@@ -1,3 +1,8 @@
+const dns = require('dns');
+// Force IPv4 DNS resolution — fixes "connect ENETUNREACH" on Render/cloud hosts
+// Node 18+ changed default from 'ipv4first' to 'verbatim', which breaks Gmail SMTP on IPv6-limited networks
+dns.setDefaultResultOrder('ipv4first');
+
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
