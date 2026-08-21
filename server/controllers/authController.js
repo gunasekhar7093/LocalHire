@@ -13,6 +13,8 @@ const generateToken = (id) => {
   });
 };
 
+const dns = require('dns');
+
 // Helper to send email using Resend (HTTPS API) or Nodemailer (Port 587 STARTTLS IPv4)
 const sendMailHelper = async ({ to, subject, text }) => {
   // Option 1: Resend HTTP API (Bypasses SMTP port blocks on Cloud Hosts like Render)
@@ -36,19 +38,21 @@ const sendMailHelper = async ({ to, subject, text }) => {
     }
   }
 
-  // Option 2: Nodemailer with Port 587 (STARTTLS) and family: 4 (IPv4)
-  // Port 587 is unblocked on Render (unlike port 465)
+  // Option 2: Nodemailer with Port 587 (STARTTLS) and forced IPv4 lookup
+  // Port 587 is unblocked on Render; custom lookup forces IPv4 to avoid ENETUNREACH
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
     secure: false, // STARTTLS
-    family: 4,     // IPv4 force (fixes ENETUNREACH)
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     },
     tls: {
       rejectUnauthorized: false
+    },
+    lookup: (hostname, options, callback) => {
+      return dns.lookup(hostname, { family: 4 }, callback);
     },
     connectionTimeout: 15000,
     greetingTimeout: 15000,
