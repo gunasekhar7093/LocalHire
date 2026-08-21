@@ -4,7 +4,7 @@ const Post = require('../models/Post');
 const Conversation = require('../models/Conversation');
 const Message = require('../models/Message');
 const OTP = require('../models/OTP');
-const nodemailer = require('nodemailer');
+const emailjs = require('@emailjs/nodejs');
 
 // Generate JWT
 const generateToken = (id) => {
@@ -28,28 +28,21 @@ exports.sendOtp = async (req, res) => {
     // Generate 6 digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Setup Nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+    // Send OTP via EmailJS (uses HTTP API, works on all cloud hosts)
+    await emailjs.send(
+      process.env.EMAILJS_SERVICE_ID,
+      process.env.EMAILJS_TEMPLATE_ID,
+      {
+        to_email: email,
+        otp: otp,
+        subject: 'LocalHire Registration OTP',
+        message: `Your OTP for registration is: ${otp}. It is valid for 5 minutes.`
       },
-      tls: {
-        rejectUnauthorized: false
+      {
+        publicKey: process.env.EMAILJS_PUBLIC_KEY,
+        privateKey: process.env.EMAILJS_PRIVATE_KEY,
       }
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'LocalHire Registration OTP',
-      text: `Your OTP for registration is: ${otp}. It is valid for 5 minutes.`
-    };
-
-    await transporter.sendMail(mailOptions);
+    );
 
     // Save to DB
     await OTP.findOneAndDelete({ email }); // clear old OTP if exists
@@ -57,7 +50,8 @@ exports.sendOtp = async (req, res) => {
 
     res.status(200).json({ message: 'OTP sent successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('EmailJS Error:', error);
+    res.status(500).json({ message: error.text || error.message || 'Failed to send OTP' });
   }
 };
 
@@ -309,28 +303,21 @@ exports.forgotPassword = async (req, res) => {
     // Generate 6 digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Setup Nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+    // Send OTP via EmailJS
+    await emailjs.send(
+      process.env.EMAILJS_SERVICE_ID,
+      process.env.EMAILJS_TEMPLATE_ID,
+      {
+        to_email: email,
+        otp: otp,
+        subject: 'LocalHire Password Reset OTP',
+        message: `Your OTP for resetting your password is: ${otp}. It is valid for 5 minutes.`
       },
-      tls: {
-        rejectUnauthorized: false
+      {
+        publicKey: process.env.EMAILJS_PUBLIC_KEY,
+        privateKey: process.env.EMAILJS_PRIVATE_KEY,
       }
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'LocalHire Password Reset OTP',
-      text: `Your OTP for resetting your password is: ${otp}. It is valid for 5 minutes.`
-    };
-
-    await transporter.sendMail(mailOptions);
+    );
 
     // Save to DB
     await OTP.findOneAndDelete({ email }); // clear old OTP if exists
@@ -338,7 +325,8 @@ exports.forgotPassword = async (req, res) => {
 
     res.status(200).json({ message: 'Reset OTP sent successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('EmailJS Error:', error);
+    res.status(500).json({ message: error.text || error.message || 'Failed to send OTP' });
   }
 };
 
