@@ -13,6 +13,58 @@ const generateToken = (id) => {
   });
 };
 
+// Helper to send email using Resend (HTTPS API) or Nodemailer (Port 587 STARTTLS IPv4)
+const sendMailHelper = async ({ to, subject, text }) => {
+  // Option 1: Resend HTTP API (Bypasses SMTP port blocks on Cloud Hosts like Render)
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const { Resend } = require('resend');
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      const { data, error } = await resend.emails.send({
+        from: 'LocalHire <onboarding@resend.dev>',
+        to: [to],
+        subject,
+        text,
+      });
+      if (error) {
+        console.error('Resend API error:', error);
+        throw new Error(error.message || 'Resend email error');
+      }
+      return data;
+    } catch (err) {
+      console.error('Resend failed, falling back to Nodemailer SMTP:', err.message);
+    }
+  }
+
+  // Option 2: Nodemailer with Port 587 (STARTTLS) and family: 4 (IPv4)
+  // Port 587 is unblocked on Render (unlike port 465)
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // STARTTLS
+    family: 4,     // IPv4 force (fixes ENETUNREACH)
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    },
+    tls: {
+      rejectUnauthorized: false
+    },
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 15000
+  });
+
+  const mailOptions = {
+    from: `LocalHire <${process.env.EMAIL_USER}>`,
+    to,
+    subject,
+    text
+  };
+
+  return await transporter.sendMail(mailOptions);
+};
+
 // @desc    Send OTP
 // @route   POST /api/auth/send-otp
 // @access  Public
@@ -28,26 +80,12 @@ exports.sendOtp = async (req, res) => {
     // Generate 6 digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Setup Nodemailer transporter with IPv4 forced (fixes ENETUNREACH on Render)
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      family: 4,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
+    // Send OTP Email via sendMailHelper
+    await sendMailHelper({
       to: email,
       subject: 'LocalHire Registration OTP',
       text: `Your OTP for registration is: ${otp}. It is valid for 5 minutes.`
-    };
-
-    await transporter.sendMail(mailOptions);
+    });
 
     // Save to DB
     await OTP.findOneAndDelete({ email }); // clear old OTP if exists
@@ -55,7 +93,8 @@ exports.sendOtp = async (req, res) => {
 
     res.status(200).json({ message: 'OTP sent successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error in sendOtp:', error);
+    res.status(500).json({ message: error.message || 'Failed to send OTP' });
   }
 };
 
@@ -307,26 +346,12 @@ exports.forgotPassword = async (req, res) => {
     // Generate 6 digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Setup Nodemailer transporter with IPv4 forced (fixes ENETUNREACH on Render)
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      family: 4,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
+    // Send Reset OTP Email via sendMailHelper
+    await sendMailHelper({
       to: email,
       subject: 'LocalHire Password Reset OTP',
       text: `Your OTP for resetting your password is: ${otp}. It is valid for 5 minutes.`
-    };
-
-    await transporter.sendMail(mailOptions);
+    });
 
     // Save to DB
     await OTP.findOneAndDelete({ email }); // clear old OTP if exists
@@ -334,7 +359,8 @@ exports.forgotPassword = async (req, res) => {
 
     res.status(200).json({ message: 'Reset OTP sent successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error in forgotPassword:', error);
+    res.status(500).json({ message: error.message || 'Failed to send OTP' });
   }
 };
 
