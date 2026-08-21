@@ -13,62 +13,6 @@ const generateToken = (id) => {
   });
 };
 
-const dns = require('dns');
-
-// Helper to send email using Resend (HTTPS API) or Nodemailer (Port 587 STARTTLS IPv4)
-const sendMailHelper = async ({ to, subject, text }) => {
-  // Option 1: Resend HTTP API (Bypasses SMTP port blocks on Cloud Hosts like Render)
-  if (process.env.RESEND_API_KEY) {
-    try {
-      const { Resend } = require('resend');
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      const { data, error } = await resend.emails.send({
-        from: 'LocalHire <onboarding@resend.dev>',
-        to: [to],
-        subject,
-        text,
-      });
-      if (error) {
-        console.error('Resend API error:', error);
-        throw new Error(error.message || 'Resend email error');
-      }
-      return data;
-    } catch (err) {
-      console.error('Resend failed, falling back to Nodemailer SMTP:', err.message);
-    }
-  }
-
-  // Option 2: Nodemailer with Port 587 (STARTTLS) and forced IPv4 lookup
-  // Port 587 is unblocked on Render; custom lookup forces IPv4 to avoid ENETUNREACH
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // STARTTLS
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    },
-    tls: {
-      rejectUnauthorized: false
-    },
-    lookup: (hostname, options, callback) => {
-      return dns.lookup(hostname, { family: 4 }, callback);
-    },
-    connectionTimeout: 15000,
-    greetingTimeout: 15000,
-    socketTimeout: 15000
-  });
-
-  const mailOptions = {
-    from: `LocalHire <${process.env.EMAIL_USER}>`,
-    to,
-    subject,
-    text
-  };
-
-  return await transporter.sendMail(mailOptions);
-};
-
 // @desc    Send OTP
 // @route   POST /api/auth/send-otp
 // @access  Public
@@ -84,12 +28,31 @@ exports.sendOtp = async (req, res) => {
     // Generate 6 digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Send OTP Email via sendMailHelper
-    await sendMailHelper({
+    // Setup Nodemailer transporter
+    // Using explicit SMTP host with IPv4 to avoid ENETUNREACH on cloud hosts (Render/Railway)
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      },
+      tls: {
+        rejectUnauthorized: false
+      },
+      // Force IPv4 DNS resolution (fixes "connect ENETUNREACH" on Render)
+      dnsOptions: { family: 4 }
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
       to: email,
       subject: 'LocalHire Registration OTP',
       text: `Your OTP for registration is: ${otp}. It is valid for 5 minutes.`
-    });
+    };
+
+    await transporter.sendMail(mailOptions);
 
     // Save to DB
     await OTP.findOneAndDelete({ email }); // clear old OTP if exists
@@ -97,8 +60,7 @@ exports.sendOtp = async (req, res) => {
 
     res.status(200).json({ message: 'OTP sent successfully' });
   } catch (error) {
-    console.error('Error in sendOtp:', error);
-    res.status(500).json({ message: error.message || 'Failed to send OTP' });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -350,12 +312,29 @@ exports.forgotPassword = async (req, res) => {
     // Generate 6 digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Send Reset OTP Email via sendMailHelper
-    await sendMailHelper({
+    // Setup Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      },
+      tls: {
+        rejectUnauthorized: false
+      },
+      dnsOptions: { family: 4 }
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
       to: email,
       subject: 'LocalHire Password Reset OTP',
       text: `Your OTP for resetting your password is: ${otp}. It is valid for 5 minutes.`
-    });
+    };
+
+    await transporter.sendMail(mailOptions);
 
     // Save to DB
     await OTP.findOneAndDelete({ email }); // clear old OTP if exists
@@ -363,8 +342,7 @@ exports.forgotPassword = async (req, res) => {
 
     res.status(200).json({ message: 'Reset OTP sent successfully' });
   } catch (error) {
-    console.error('Error in forgotPassword:', error);
-    res.status(500).json({ message: error.message || 'Failed to send OTP' });
+    res.status(500).json({ message: error.message });
   }
 };
 
